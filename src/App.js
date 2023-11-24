@@ -32,7 +32,7 @@ import { initalState, reducer } from './reducers/useReducer';
 //   )
 // }
 
-const userContext = createContext();
+export const userContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Routing = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    // console.log(user)
 
     if (user) {
       dispach({ type: "USER", payload: user });

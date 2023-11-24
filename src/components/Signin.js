@@ -50,14 +50,18 @@ const Signin = () => {
         )
             .then((res) => {
                 const data = res.data;
+                console.log(data)
                 if (data.error) {
                     toast.error("Error")
                 } else {
                     toast.success(res.data.message);
-                    navigate("/signin")
+                    localStorage.setItem("jwt", data.token);
+                    localStorage.setItem("user", JSON.stringify(data.user))
+                    navigate("/")
                 }
             }).catch((error) => {
                 console.log(error);
+                toast.error(error.response.data.message)
             })
     }
 
