@@ -32,17 +32,16 @@ import { initalState, reducer } from './reducers/useReducer';
 //   )
 // }
 
-export const userContext = createContext();
+export const UserContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
 
-  const { state, dispach } = useContext(userContext);
+  const { state, dispach } = useContext(UserContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     // console.log(user)
-
     if (user) {
       dispach({ type: "USER", payload: user });
     } else {
@@ -73,12 +72,12 @@ function App() {
   const [state, dispach] = useReducer(reducer, initalState);
   return (
     <>
-      <userContext.Provider value={{ state, dispach }}>
+      <UserContext.Provider value={{ state, dispach }}>
         <Router>
           <Navbar />
           <Routing />
         </Router>
-      </userContext.Provider>
+      </UserContext.Provider>
     </>
   )
 }
