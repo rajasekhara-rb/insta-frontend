@@ -37,13 +37,13 @@ export const UserContext = createContext();
 const Routing = () => {
   const navigate = useNavigate();
 
-  const { state, dispach } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     // console.log(user)
     if (user) {
-      dispach({ type: "USER", payload: user });
+      dispatch({ type: "USER", payload: user });
     } else {
       navigate("/signin");
     }
@@ -69,10 +69,10 @@ const Routing = () => {
 
 
 function App() {
-  const [state, dispach] = useReducer(reducer, initalState);
+  const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
-      <UserContext.Provider value={{ state, dispach }}>
+      <UserContext.Provider value={{ state, dispatch }}>
         <Router>
           <Navbar />
           <Routing />

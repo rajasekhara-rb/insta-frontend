@@ -6,7 +6,7 @@ import axios from 'axios';
 const Home = () => {
 
     const [data, setData] = useState([]);
-    const { state, dispach } = useContext(UserContext);
+    const { state, dispatch } = useContext(UserContext);
     // console.log(state);
     // console.log(data)
 
@@ -23,7 +23,7 @@ const Home = () => {
     }, [])
 
     const deletePost = (id) => {
-        console.log(id)
+        // console.log(id)
         axios.delete(`http://localhost:5234/post/${id}`, {
             //include authorization token 
             headers: {
@@ -138,7 +138,7 @@ const Home = () => {
             <div className='home'>
                 {
                     data.map(item => {
-                        console.log(item)
+                        // console.log(item)
                         return (
                             <div className='card home-card' key={item._id}>
                                 <h5 style={{ display: "flex", justifyContent: "space-between" }}>

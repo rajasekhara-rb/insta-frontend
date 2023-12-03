@@ -1,7 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const Navbar = () => {
+
+    const { state, dispatch } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const renderList = () => {
+        if (state) {
+            return (
+                <>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/profile">Profile</Link></li>
+                    <li><Link to="/create">CreatePost</Link></li>
+                    <li>
+                        <button className="btn waves-effect waves-light #00e676 green accent-3" type="submit" name="action"
+                            onClick={() => {
+                                localStorage.clear();
+                                dispatch({ type: "CLEAR" });
+                                navigate("/signin");
+                            }}>
+                            Logout
+                        </button>
+                    </li>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <li><a href="/signin">Login</a></li>
+                    <li><a href="/signup">Register</a></li>
+                </>
+            )
+        }
+    }
+
     return (
         <nav>
             {/* <div className="nav-wrapper white">
@@ -19,9 +53,10 @@ const Navbar = () => {
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo">Instagram</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="/signin">Login</a></li>
+                        {renderList()}
+                        {/* <li><a href="/signin">Login</a></li>
                         <li><a href="/signup">Register</a></li>
-                        <li><a href="/create">Create Post</a></li>
+                        <li><a href="/create">Create Post</a></li> */}
                     </ul>
                 </div>
             </nav>
