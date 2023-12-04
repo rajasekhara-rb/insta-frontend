@@ -12,6 +12,8 @@ import { createContext } from 'react';
 import { useEffect } from 'react';
 import { useReducer } from 'react';
 import { initalState, reducer } from './reducers/useReducer';
+import { ToastContainer } from 'react-toastify';
+import UserProfile from './components/UserProfile';
 
 // function App() {
 //   return (
@@ -58,7 +60,7 @@ const Routing = () => {
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/:userid' element={<Home />} />
+        <Route path='/profile/:userid' element={<UserProfile/>} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
 
@@ -78,6 +80,7 @@ function App() {
           <Routing />
         </Router>
       </UserContext.Provider>
+      <ToastContainer />
     </>
   )
 }
