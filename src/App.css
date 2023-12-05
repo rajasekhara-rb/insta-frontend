@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Grand+Hotel&family=Lato:ital,wght@0,300;0,400;0,700;1,400;1,700&family=Poppins:wght@300&display=swap');
 
-a{
-  color: black!important;
+a {
+  color: black !important;
   font-family: 'Lato', sans-serif;
 
 }
 
-.brand-logo,h2{
+.brand-logo,
+h2 {
   font-family: 'Grand Hotel', cursive;
 }
 
-.logindiv{
+.logindiv {
   padding: 20px;
   text-align: center;
   max-width: 400px;
@@ -20,61 +21,63 @@ a{
 }
 
 .input-field input[type=text]:focus {
-  border-bottom: 1px solid #418cfc!important;
-  box-shadow: 0 1px 0 0 #418cfc!important;
+  border-bottom: 1px solid #418cfc !important;
+  box-shadow: 0 1px 0 0 #418cfc !important;
 }
 
 
 
 .input-field input[type=email]:focus {
-  border-bottom: 1px solid #418cfc!important;
-  box-shadow: 0 1px 0 0 #418cfc!important;
+  border-bottom: 1px solid #418cfc !important;
+  box-shadow: 0 1px 0 0 #418cfc !important;
 }
 
 .input-field input[type=password]:focus {
-  border-bottom: 1px solid #418cfc!important;
-  box-shadow: 0 1px 0 0 #418cfc!important;
+  border-bottom: 1px solid #418cfc !important;
+  box-shadow: 0 1px 0 0 #418cfc !important;
 }
 
-h6{
+h6 {
   margin-top: 20px;
-  border-bottom:1px solid rgb(207, 205, 205);
+  border-bottom: 1px solid rgb(207, 205, 205);
 }
 
-.postimages{
+.postimages {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.post{
+
+.post {
   width: 50%;
   padding: 1px;
   height: 300px;
- 
+/* border-radius: 3%; */
 }
 
-.home-card{
+.home-card {
   max-width: 550px;
   height: max-content;
   margin: 26px auto;
 }
 
-.home-card h6,p{
-  font-family:  cursive;
+.home-card h6,
+p {
+  font-family: cursive;
   font-size: 16px;
 
 }
 
 
 input[type=text]:focus {
-  border-bottom: 1px solid #418cfc!important;
-  box-shadow: 0 1px 0 0 #418cfc!important;
-  font-family:  cursive;
+  border-bottom: 1px solid #418cfc !important;
+  box-shadow: 0 1px 0 0 #418cfc !important;
+  font-family: cursive;
   font-size: 20px;
 }
 
-.postcontainer{
+.postcontainer {
   margin: 30px auto !important;
   max-width: 500px !important;
   padding: 40px;
@@ -83,4 +86,12 @@ input[type=text]:focus {
   border-radius: 20px;
   font-family: cursive;
   font-size: 20px;
+}
+
+.profile-vals {
+  display: 'flex';
+  flex-direction: 'column';
+  justify-content: 'center';
+  align-items: 'center';
+  text-align: center;
 }

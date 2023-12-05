@@ -29,8 +29,10 @@ const Navbar = () => {
         } else {
             return (
                 <>
-                    <li><a href="/signin">Login</a></li>
-                    <li><a href="/signup">Register</a></li>
+                <li><Link to="/signin">Login</Link></li>
+                <li><Link to="/signup">Register</Link></li>
+                    {/* <li><a href="/signin">Login</a></li> */}
+                    {/* <li><a href="/signup">Register</a></li> */}
                 </>
             )
         }

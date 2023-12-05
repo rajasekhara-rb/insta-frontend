@@ -50,9 +50,24 @@ const UserProfile = () => {
                                     justifyContent: "space-between",
                                     width: "110%"
                                 }}>
-                                <h5>{userProfile.posts.length} Post </h5>
-                                <h5>{userProfile.user.followers.length} followers</h5>
-                                <h5>{userProfile.user.following.length} following</h5>
+                                <div className='profile-vals'>
+                                    <h5>{userProfile.posts?.length}</h5>
+                                    <p>posts</p>
+                                </div>
+                                <div
+                                    className='profile-vals'
+                                // style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                    <h5>{userProfile.user.followers?.length}</h5>
+                                    <p>followers</p>
+                                </div>
+                                <div className='profile-vals'>
+                                    <h5>{userProfile.user.following?.length}</h5>
+                                    <p>following</p>
+                                </div>
+                                {/* <h5>{userProfile.posts.length} Post </h5> */}
+                                {/* <h5>{userProfile.user.followers.length} followers</h5> */}
+                                {/* <h5>{userProfile.user.following.length} following</h5> */}
                             </div>
                         </div>
                     </div>

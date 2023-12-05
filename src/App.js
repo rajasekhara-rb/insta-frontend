@@ -60,7 +60,7 @@ const Routing = () => {
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/:userid' element={<UserProfile/>} />
+        <Route path='/profile/:userid' element={<UserProfile />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
 

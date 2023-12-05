@@ -1,28 +1,52 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../App';
+import { UserContext } from '../App.js';
 import axios from 'axios';
 
 const Profile = () => {
-
   const { state, dispatch } = useContext(UserContext);
+  // console.log(state)
   const [mypics, setPics] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [profile, setProfile] = useState([]);
+  // console.log(state)
+
+
+  // useEffect(() => {
+  //   //use axios with http GET request to fetch user post who is logged in 
+  //   axios.get("http://localhost:5234/post/", {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": "Bearer " + localStorage.getItem("jwt")//attach token from localstorage
+  //     }
+  //   }).then(response => {
+  //     // console.log(response.data);
+  //     setPics(response.data.myposts)
+  //   })
+  //     .catch(error => {
+  //       console.log(error);
+  //     })
+  // }, [state, dispatch]);
 
 
   useEffect(() => {
-    //use axios with http GET request to fetch user post who is logged in 
-    axios.get("http://localhost:5234/post/", {
+    axios.get(`http://localhost:5234/user/${state?._id}`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("jwt")//attach token from localstorage
+        "Authorization": "Bearer " + localStorage.getItem("jwt")
       }
     }).then(response => {
       // console.log(response.data);
-      setPics(response.data.myposts)
+      setProfile(response.data.user);
+      setPosts(response.data.posts);
+    }).catch(error => {
+      console.log(error);
     })
-      .catch(error => {
-        console.log(error);
-      })
-  }, [state, dispatch]);
+
+  }, [state]);
+
+  const editProfile = ()=>{
+
+  }
 
 
   return (
@@ -54,32 +78,56 @@ const Profile = () => {
           display: 'flex',
           justifyContent: "space-around",
           margin: "18px 0px",
-          borderBottom: "1px solid grey"
-        }}>
-          <div>
+          borderBottom: "1px solid grey",
+          padding: "10px",
+          width: "100%",
+          borderRadius: "20px"
+        }} className='z-depth-1'>
+          <div style={{ width: "30%" }}>
             <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
               src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
               alt="img1" />
+            <i className="material-icons">
+              photo_camera
+            </i>
           </div>
-          <div>
-            <h4>{state ? state.name : "Loading..."}</h4>
+          <div style={{ width: '70%' }}>
+            <div style={{ display: "flex", justifyContent: 'space-between' }}>
+              <h4>{state ? state.name : "Loading..."}</h4>
+              <a class="waves-effect waves-light btn red lighten-2" onClick={editProfile}>
+                <i class="material-icons right">edit</i>Edit</a>
+            </div>
             <div style={
               {
                 display: "flex",
                 justifyContent: "space-between",
-                width: "110%"
+                alignItems: "center",
+                width: "100%",
+                // fontWeight: "bold"
               }}>
-              <h5>{mypics.length} Post</h5>
-              <h5>85 followers</h5>
-              <h5>95 following</h5>
+              <div className='profile-vals'>
+                <h5>{posts?.length}</h5>
+                <p>posts</p>
+              </div>
+              <div
+                className='profile-vals'
+              // style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+              >
+                <h5>{profile.followers?.length}</h5>
+                <p>followers</p>
+              </div>
+              <div className='profile-vals'>
+                <h5>{profile.following?.length}</h5>
+                <p>following</p>
+              </div>
             </div>
           </div>
         </div>
         <div className='postimages'>
           {
-            mypics.map(item => {
+            posts.map(item => {
               return (
-                <img key={item._id} className='post' src={item.photo} alt={item.title} />
+                <img key={item._id} className='post materialboxed' src={item.photo} alt={item.title} />
               )
             })
           }

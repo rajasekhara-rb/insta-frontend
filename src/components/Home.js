@@ -147,10 +147,21 @@ const Home = () => {
                         return (
                             <div className='card home-card' key={item._id}>
                                 <h5 style={{ display: "flex", justifyContent: "space-between", padding: "0px 10px", margin: "0", alignItems: "center" }}>
-                                    <Link to={item.postedBy !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
-                                        <h5>{item.postedBy.name}</h5>
+                                    <Link to={item.postedBy !== state._id ? "/profile/" + item.postedBy._id : "/profile"}
+                                        style={{ display: 'flex', justifyContent: 'left', alignItems: "center", width: "80%" }}
+                                    >
+                                        <img style={{ width: "40px", height: "40px" }}
+                                            class="circle  responsive-img"
+                                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+                                            alt='profile' />
+                                        <h5 style={{ marginLeft: "10px" }}>{item.postedBy.name}</h5>
                                     </Link>
                                     {/* <div style={{}}> */}
+                                    {item.postedBy._id !== state._id && (
+                                        <i style={{ float: "right" }} className="material-icons">
+                                            more_horiz
+                                        </i>
+                                    )}
                                     {item.postedBy._id === state._id && (
                                         <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
                                             delete
@@ -161,7 +172,7 @@ const Home = () => {
 
 
                                 <div className='card-image'>
-                                    <img className='post activator' src={item.photo} alt="image1" />
+                                    <img className='post activator' src={item.photo} alt="image1" style={{borderRadius:"2%"}}/>
                                 </div>
                                 <div className='card-content'>
                                     {/* <i className="material-icons" style={{ color: "red", fontSize: "30px" }}>favorite</i> */}
