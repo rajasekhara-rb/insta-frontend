@@ -57,7 +57,9 @@ const Signin = () => {
                     localStorage.setItem("jwt", data.token);
                     localStorage.setItem("user", JSON.stringify(data.user))
                     toast.success(res.data.message);
-                    navigate("/")
+                    setTimeout(() => {
+                        navigate("/")
+                    }, 2000);
                 }
             }).catch((error) => {
                 console.log(error);

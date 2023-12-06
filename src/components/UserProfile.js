@@ -1,11 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../App';
+
 
 const UserProfile = () => {
 
     const [userProfile, setProfile] = useState(null);
+    console.log(userProfile)
     //get the user id from routes paramaters
+    const { state, dispatch } = useContext(UserContext);
     const { userid } = useParams();
 
 
@@ -22,8 +26,62 @@ const UserProfile = () => {
             console.log(error);
         })
 
-    }, [userid])
+    }, [userProfile])
 
+
+    const followUser = (id) => {
+        console.log(id)
+        axios.put("http://localhost:5234/user/follow",
+            { followId: id },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                }
+            }
+        ).then(res => res.data.followingUser)
+            .then((result) => {
+                const newData = userProfile.map((item) => {
+                    if (item._id === result._id) {
+                        return result;
+                    } else {
+                        return item
+                    }
+                });
+                setProfile(newData);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const UnFollowUser = (id) => {
+        console.log(id)
+        axios.put("http://localhost:5234/user/unfollow",
+            {
+                unfollowId: id
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                }
+            }
+        ).then(response => response.data.followingUser)
+            .then(result => {
+                // console.log(result);
+                const newData = userProfile.map(item => {
+                    if (item._id === result._id) {
+                        return result;
+                    } else {
+                        return item;
+                    }
+                });
+                setProfile(newData);
+            }).catch(error => {
+                console.log(error);
+            })
+    }
 
     return (
         <div>
@@ -34,21 +92,39 @@ const UserProfile = () => {
                         display: 'flex',
                         justifyContent: "space-around",
                         margin: "18px 0px",
-                        borderBottom: "1px solid grey"
-                    }}>
-                        <div>
+                        borderBottom: "1px solid grey",
+                        padding: "10px",
+                        width: "100%",
+                        borderRadius: "20px"
+                    }} className='z-depth-1'>
+                        <div style={{ width: "30%" }}>
                             <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
                                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
                                 alt="img1" />
                         </div>
-                        <div>
-                            <h4>{userProfile.user.name}</h4>
-                            <h4>{userProfile.user.email}</h4>
+                        <div style={{ width: '70%' }}>
+                            <div style={{ display: "flex", justifyContent: 'space-between' }}>
+                                <div>
+                                    <h4>{userProfile.user.name}</h4>
+                                    <h5>{userProfile.user.email}</h5>
+                                </div>
+                                {userProfile.user.followers.includes(state._id) ? (
+                                    <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+                                        UnFollowUser(userProfile.user._id)
+                                    }}>
+                                        <i class="material-icons right">person</i>UnFollow</a>
+                                ) : (
+                                    <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+                                        followUser(userProfile.user._id)
+                                    }}>
+                                        <i class="material-icons right">person_add</i>Follow</a>
+                                )}
+                            </div>
                             <div style={
                                 {
                                     display: "flex",
                                     justifyContent: "space-between",
-                                    width: "110%"
+                                    width: "100%"
                                 }}>
                                 <div className='profile-vals'>
                                     <h5>{userProfile.posts?.length}</h5>
@@ -71,6 +147,7 @@ const UserProfile = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className='postimages'>
                         {userProfile.posts.map(item => (
                             //map through user post and display the image

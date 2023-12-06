@@ -8,7 +8,7 @@ const Profile = () => {
   const [mypics, setPics] = useState([]);
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState([]);
-  // console.log(state)
+  console.log(profile)
 
 
   // useEffect(() => {
@@ -44,7 +44,7 @@ const Profile = () => {
 
   }, [state]);
 
-  const editProfile = ()=>{
+  const editProfile = () => {
 
   }
 

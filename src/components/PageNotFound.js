@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import M from "materialize-css";
+
 
 const PageNotFound = () => {
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.fixed-action-btn');
+        var instances = M.FloatingActionButton.init(elems, {
+            direction: 'left',
+            hoverEnabled: false
+        });
+    });
+
 
     return (
         <>
@@ -8,20 +19,20 @@ const PageNotFound = () => {
                 Page Not Found
             </div>
 
-            {/* <!-- Dropdown Trigger --> */}
-  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
 
-  {/* <!-- Dropdown Structure --> */}
-  <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
-    <li class="divider" tabindex="-1"></li>
-    <li><a href="#!">three</a></li>
-    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-  </ul>
-        
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large red">
+                    <i class="large material-icons">mode_edit</i>
+                </a>
+                <ul>
+                    <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+                    <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+                    <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+                    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+                </ul>
+            </div>
         </>
+
     );
 };
 

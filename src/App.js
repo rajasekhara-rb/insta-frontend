@@ -1,4 +1,6 @@
 import './App.css';
+import "materialize-css"
+// import "materialize-css/dist/css/materialize.min.css";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -59,8 +61,14 @@ const Routing = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/:userid' element={<UserProfile />} />
+        <Route path='/profile' element={<Profile />}>
+          <Route path='posts' element={<Profile />} />
+          <Route path='followers' element={<Profile />} />
+          <Route path='following' element={<Profile />} />
+        </Route>
+        <Route path='/profile/:userid' element={<UserProfile />}>
+          <Route path='posts' element={<UserProfile />} />
+        </Route>
         <Route path='*' element={<PageNotFound />} />
       </Routes>
 
