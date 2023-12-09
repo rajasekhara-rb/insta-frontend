@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         dispatch({ type: "USER", payload: user });
-    },[])
+    }, [])
 
     useEffect(() => {
         axios.get("http://localhost:5234/post/allposts", {
@@ -24,7 +24,8 @@ const Home = () => {
             }
         })
             .then((res) => {
-                setData(res.data.posts)
+                console.log(res.data)
+                setData(res.data.posts);
             })
     }, [])
 
@@ -142,7 +143,7 @@ const Home = () => {
                                         >
                                             <img style={{ width: "40px", height: "40px" }}
                                                 class="circle  responsive-img"
-                                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+                                                src={item.postedBy.photo ? item.postedBy.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                                                 alt='profile' />
                                             <h5 style={{ marginLeft: "10px" }}>{item.postedBy.name}</h5>
                                         </Link>

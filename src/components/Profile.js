@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../App.js';
 import axios from 'axios';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
   // console.log(state)
+  const navigate = useNavigate();
   const [mypics, setPics] = useState([]);
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState([]);
   console.log(profile)
-
 
   // useEffect(() => {
   //   //use axios with http GET request to fetch user post who is logged in 
@@ -29,7 +30,7 @@ const Profile = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:5234/user/${state?._id}`, {
+    axios.get(`http://localhost:5234/user/byid/${state?._id}`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -43,11 +44,6 @@ const Profile = () => {
     })
 
   }, [state]);
-
-  const editProfile = () => {
-
-  }
-
 
   return (
     <div>
@@ -85,16 +81,18 @@ const Profile = () => {
         }} className='z-depth-1'>
           <div style={{ width: "30%" }}>
             <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+              src={profile.photo ? profile.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
               alt="img1" />
-            <i className="material-icons">
+            {/* <i className="material-icons">
               photo_camera
-            </i>
+            </i> */}
           </div>
           <div style={{ width: '70%' }}>
             <div style={{ display: "flex", justifyContent: 'space-between' }}>
               <h4>{state ? state.name : "Loading..."}</h4>
-              <a class="waves-effect waves-light btn red lighten-2" onClick={editProfile}>
+              <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+                navigate("/editprofile")
+              }}>
                 <i class="material-icons right">edit</i>Edit</a>
             </div>
             <div style={
@@ -135,6 +133,7 @@ const Profile = () => {
         </div>
       </div>
 
+      {/* <Outlet /> */}
     </div>
   );
 };

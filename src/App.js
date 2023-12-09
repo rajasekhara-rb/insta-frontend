@@ -1,5 +1,5 @@
 import './App.css';
-import "materialize-css"
+import "materialize-css";
 // import "materialize-css/dist/css/materialize.min.css";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
@@ -16,6 +16,7 @@ import { useReducer } from 'react';
 import { initalState, reducer } from './reducers/useReducer';
 import { ToastContainer } from 'react-toastify';
 import UserProfile from './components/UserProfile';
+import EditProfile from './components/EditProfile';
 
 // function App() {
 //   return (
@@ -61,10 +62,11 @@ const Routing = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
+        <Route path='/editprofile' element={<EditProfile />} />
         <Route path='/profile' element={<Profile />}>
-          <Route path='posts' element={<Profile />} />
-          <Route path='followers' element={<Profile />} />
-          <Route path='following' element={<Profile />} />
+          <Route path='' element={<Profile />} />
+          {/* <Route path='followers' element={<Profile />} /> */}
+          {/* <Route path='following' element={<Profile />} /> */}
         </Route>
         <Route path='/profile/:userid' element={<UserProfile />}>
           <Route path='posts' element={<UserProfile />} />

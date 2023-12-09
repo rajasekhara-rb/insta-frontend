@@ -7,14 +7,14 @@ import { UserContext } from '../App';
 const UserProfile = () => {
 
     const [userProfile, setProfile] = useState(null);
-    console.log(userProfile)
+    // console.log(userProfile)
     //get the user id from routes paramaters
     const { state, dispatch } = useContext(UserContext);
     const { userid } = useParams();
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5234/user/${userid}`, {
+        axios.get(`http://localhost:5234/user/byid/${userid}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -30,7 +30,7 @@ const UserProfile = () => {
 
 
     const followUser = (id) => {
-        console.log(id)
+        // console.log(id)
         axios.put("http://localhost:5234/user/follow",
             { followId: id },
             {
@@ -56,7 +56,7 @@ const UserProfile = () => {
     }
 
     const UnFollowUser = (id) => {
-        console.log(id)
+        // console.log(id)
         axios.put("http://localhost:5234/user/unfollow",
             {
                 unfollowId: id
@@ -99,7 +99,7 @@ const UserProfile = () => {
                     }} className='z-depth-1'>
                         <div style={{ width: "30%" }}>
                             <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
-                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXZhdGFyJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+                                src={userProfile.user.photo ? userProfile.user.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                                 alt="img1" />
                         </div>
                         <div style={{ width: '70%' }}>
