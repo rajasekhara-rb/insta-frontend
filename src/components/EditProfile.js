@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const EditProfile = () => {
     const navigate = useNavigate();
@@ -10,7 +11,9 @@ const EditProfile = () => {
     const [profile, setProfile] = useState([]);
     // console.log(profile);
     const [image, setImage] = useState(null);
+    // const [imageUrl, setImageUrl] = useState(null);
     // console.log(image)
+    // console.log(imageUrl)
 
     useEffect(() => {
         axios.get(`http://localhost:5234/user/byid/${state?._id}`, {
@@ -26,12 +29,13 @@ const EditProfile = () => {
             console.log(error);
         })
 
-    }, [state]);
+    }, []);
 
     const updateProfile = async (e) => {
         e.preventDefault();
         try {
-            if (image) {
+            const { name, about } = profile;
+            if (name && image) {
                 const data = new FormData();
                 data.append("file", image);
                 data.append('upload_preset', "instagram");
@@ -41,33 +45,37 @@ const EditProfile = () => {
                 // console.log(response);
                 // .then((res) => {
                 //     console.log(res)
-                const imageUrl = response.data.secure_url;
-                setProfile({ ...profile, photo: imageUrl });
+                const resImageUrl = response.data.secure_url;
+                // setImageUrl(resImageUrl);
                 // })
                 // .then((res) => {
                 // if (imageUrl) {
+
+                const photo = resImageUrl;
+                await axios.put(`http://localhost:5234/user/editprofile`,
+                    {
+                        name,
+                        about,
+                        photo
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("jwt")
+                        }
+                    }).then(response => {
+                        // console.log(response.data);
+                        setProfile(response.data.user);
+                        //   setPosts(response.data.posts);
+                        navigate("/profile")
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                // }
+                // })
+            } else {
+                toast.error("Name & profile photo cannot be empty")
             }
-            axios.put(`http://localhost:5234/user/editprofile`,
-                {
-                    name: profile.name,
-                    photo: profile.photo,
-                    about: profile.about
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer " + localStorage.getItem("jwt")
-                    }
-                }).then(response => {
-                    // console.log(response.data);
-                    setProfile(response.data.user);
-                    //   setPosts(response.data.posts);
-                    navigate("/profile")
-                }).catch(error => {
-                    console.log(error);
-                })
-            // }
-            // })
         } catch (error) {
             console.log(error);
         }

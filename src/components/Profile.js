@@ -89,7 +89,7 @@ const Profile = () => {
           </div>
           <div style={{ width: '70%' }}>
             <div style={{ display: "flex", justifyContent: 'space-between' }}>
-              <h4>{state ? state.name : "Loading..."}</h4>
+              <h4>{profile.name?profile.name : "Loading..."}</h4>
               <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
                 navigate("/editprofile")
               }}>

@@ -3,13 +3,21 @@ import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import M from "materialize-css";
+
+M.AutoInit();
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     var elems = document.querySelectorAll('.dropdown-trigger');
+//     var instances = M.Dropdown.init(elems);
+// });
 
 const Home = () => {
 
     const [data, setData] = useState([]);
     const { state, dispatch } = useContext(UserContext);
     // console.log(state);
-    // console.log(data);
+    console.log(data);
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -24,7 +32,7 @@ const Home = () => {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setData(res.data.posts);
             })
     }, [])
@@ -39,7 +47,7 @@ const Home = () => {
             }
         }).then(response => response.data)
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 const newData = data.filter(item => item._id !== result._id);
                 // console.log(newData);
                 setData(newData);//update the stated with new data of the post ->deleted 
@@ -145,22 +153,46 @@ const Home = () => {
                                                 class="circle  responsive-img"
                                                 src={item.postedBy.photo ? item.postedBy.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                                                 alt='profile' />
-                                            <h5 style={{ marginLeft: "10px" }}>{item.postedBy.name}</h5>
+                                            <h5 style={{ marginLeft: "10px" }}>{item.postedBy.name} {item.postedBy._id === state._id ? "(You)" : ""}</h5>
                                         </Link>
-                                        {/* <div style={{}}> */}
-                                        {item.postedBy._id !== state._id && (
+                                        {/* <div style={{ padding: "10px" }} className="material-icons dropdown-trigger" data-target='dropdown1'>
                                             <i style={{ float: "right" }} className="material-icons">
                                                 more_horiz
                                             </i>
-                                        )}
+                                        </div> */}
+                                        {/* <ul className='dropdown-content' id='dropdown1'>
+                                            {item.postedBy._id !== state._id ? (
+                                            <li>
+                                                <Link to={`/profile/${item.postedBy._id}`}>
+                                                    <i style={{ float: "right" }} className="material-icons">
+                                                        person
+                                                    </i> Profile
+                                                </Link>
+                                            </li>
+                                             ) : ( 
+                                            <li>
+                                                {item.postedBy._id === state._id && (
+                                                    <a>
+                                                        <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
+                                                            delete
+                                                        </i> Delete Post
+                                                    </a>
+                                                )}
+                                            </li>
+                                            )}
+
+                                        </ul> */}
+                                        {/* {item.postedBy._id !== state._id && (
+                                            <i style={{ float: "right" }} className="material-icons">
+                                                more_horiz
+                                            </i>
+                                        )} */}
                                         {item.postedBy._id === state._id && (
                                             <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
                                                 delete
                                             </i>
                                         )}
-                                        {/* </div> */}
                                     </h5>
-
 
                                     <div className='card-image'>
                                         <img className='post activator' src={item.photo} alt="image1" style={{ borderRadius: "2%" }} />

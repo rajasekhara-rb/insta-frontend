@@ -1,5 +1,5 @@
 import './App.css';
-import "materialize-css";
+// import "materialize-css";
 // import "materialize-css/dist/css/materialize.min.css";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
