@@ -44,6 +44,7 @@ const CreatePost = () => {
 
     const postDetails = async () => {
         const data = new FormData();
+        console.log(data)
         data.append("file", image);
         // set upload preset 
         data.append('upload_preset', "instagram");
