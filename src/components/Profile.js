@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../App.js';
+import { PostContext, UserContext } from '../App.js';
 import axios from 'axios';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import MyPosts from './MyPosts.js';
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
+  // const { contextPosts, setContextPosts } = useContext(PostContext);
   // console.log(state)
   const navigate = useNavigate();
-  const [mypics, setPics] = useState([]);
+  // const [mypics, setPics] = useState([]);
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState([]);
-  console.log(profile)
+  // console.log(profile)
 
   // useEffect(() => {
   //   //use axios with http GET request to fetch user post who is logged in 
@@ -39,6 +41,7 @@ const Profile = () => {
       // console.log(response.data);
       setProfile(response.data.user);
       setPosts(response.data.posts);
+      // setContextPosts(response.data.posts);
     }).catch(error => {
       console.log(error);
     })
@@ -67,8 +70,6 @@ const Profile = () => {
                 </div>
             </div> */}
 
-
-
       <div style={{ maxWidth: "800px", margin: "0px auto" }}>
         <div style={{
           display: 'flex',
@@ -89,7 +90,7 @@ const Profile = () => {
           </div>
           <div style={{ width: '70%' }}>
             <div style={{ display: "flex", justifyContent: 'space-between' }}>
-              <h4>{profile.name?profile.name : "Loading..."}</h4>
+              <h4>{profile.name ? profile.name : "Loading..."}</h4>
               <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
                 navigate("/editprofile")
               }}>
@@ -121,7 +122,17 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='postimages'>
+
+        <ul id="tabs-swipe-demo" class="tabs">
+          <li class="tab col s3"><Link to="posts">Posts</Link></li>
+          <li class="tab col s3"><Link class="active" to="followers">Followers</Link></li>
+          <li class="tab col s3"><Link to="following">Following</Link></li>
+        </ul>
+        {/* <div id="test-swipe-1" class="col s12 blue">Test 1</div>
+        <div id="test-swipe-2" class="col s12 red">Test 2</div>
+        <div id="test-swipe-3" class="col s12 green">Test 3</div> */}
+
+        {/* <div className='postimages'>
           {
             posts.map(item => {
               return (
@@ -129,11 +140,10 @@ const Profile = () => {
               )
             })
           }
-
-        </div>
+        </div> */}
       </div>
 
-      {/* <Outlet /> */}
+      <Outlet />
     </div>
   );
 };

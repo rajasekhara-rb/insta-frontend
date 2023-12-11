@@ -17,6 +17,9 @@ import { initalState, reducer } from './reducers/useReducer';
 import { ToastContainer } from 'react-toastify';
 import UserProfile from './components/UserProfile';
 import EditProfile from './components/EditProfile';
+import MyPosts from './components/MyPosts';
+import Followers from './components/Followers';
+import Following from './components/Following';
 
 // function App() {
 //   return (
@@ -38,11 +41,13 @@ import EditProfile from './components/EditProfile';
 // }
 
 export const UserContext = createContext();
+// export const PostContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(UserContext);
+  // const { contextPosts, setContextPosts } = useContext(PostContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -63,14 +68,17 @@ const Routing = () => {
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/editprofile' element={<EditProfile />} />
+        {/* <PostContext.Provider value={{ contextPosts, setContextPosts }}> */}
         <Route path='/profile' element={<Profile />}>
           <Route path='' element={<Profile />} />
-          {/* <Route path='followers' element={<Profile />} /> */}
-          {/* <Route path='following' element={<Profile />} /> */}
+          <Route path='posts' element={<MyPosts />} />
+          <Route path='followers' element={<Followers />} />
+          <Route path='following' element={<Following />} />
         </Route>
         <Route path='/profile/:userid' element={<UserProfile />}>
           <Route path='posts' element={<UserProfile />} />
         </Route>
+        {/* </PostContext.Provider> */}
         <Route path='*' element={<PageNotFound />} />
       </Routes>
 
@@ -78,7 +86,6 @@ const Routing = () => {
   )
 
 }
-
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initalState);

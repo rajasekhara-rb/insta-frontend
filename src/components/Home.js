@@ -5,14 +5,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import M from "materialize-css";
 
-M.AutoInit();
+// M.AutoInit();
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     var elems = document.querySelectorAll('.dropdown-trigger');
-//     var instances = M.Dropdown.init(elems);
-// });
 
 const Home = () => {
+
+    useEffect(() => {
+        let elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems, { inDuration: 220, outDuration: 225 });
+    })
 
     const [data, setData] = useState([]);
     const { state, dispatch } = useContext(UserContext);
@@ -161,26 +162,28 @@ const Home = () => {
                                             </i>
                                         </div> */}
                                         {/* <ul className='dropdown-content' id='dropdown1'>
-                                            {item.postedBy._id !== state._id ? (
                                             <li>
-                                                <Link to={`/profile/${item.postedBy._id}`}>
-                                                    <i style={{ float: "right" }} className="material-icons">
+                                                <Link to={item.postedBy !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
+                                                    <i style={{ float: "left" }} className="material-icons">
                                                         person
                                                     </i> Profile
                                                 </Link>
                                             </li>
-                                             ) : ( 
+                                            <li>
+                                                <i style={{ float: "left" }} className="material-icons">
+                                                    share
+                                                </i> Share
+                                            </li>
+                                            <li className="divider"></li>
                                             <li>
                                                 {item.postedBy._id === state._id && (
-                                                    <a>
+                                                    <li>
                                                         <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
                                                             delete
-                                                        </i> Delete Post
-                                                    </a>
+                                                        </i> Delete
+                                                    </li>
                                                 )}
                                             </li>
-                                            )}
-
                                         </ul> */}
                                         {/* {item.postedBy._id !== state._id && (
                                             <i style={{ float: "right" }} className="material-icons">
@@ -188,7 +191,7 @@ const Home = () => {
                                             </i>
                                         )} */}
                                         {item.postedBy._id === state._id && (
-                                            <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
+                                            <i style={{ float: "right", cursor: 'pointer' }} className="material-icons" onClick={() => deletePost(item._id)}>
                                                 delete
                                             </i>
                                         )}
@@ -205,19 +208,19 @@ const Home = () => {
                                             ?
                                             /* //display unlike button if liked      */
                                             <i className="material-icons" onClick={() => { unlikePost(item._id) }}
-                                                style={{ color: "red", fontSize: "30px" }}>
+                                                style={{ color: "red", fontSize: "30px", cursor: "pointer" }}>
                                                 {/* thumb_down */}favorite
                                             </i>
                                             :
                                             /* //display like button if not liked  */
                                             <i className="material-icons" onClick={() => { likePost(item._id) }}
-                                                style={{ color: "red", fontSize: "30px" }}>
+                                                style={{ color: "red", fontSize: "30px", cursor: "pointer" }}>
                                                 {/* thumb_up */}favorite_border
                                             </i>
                                         }
 
                                         {/* new added  */}
-                                        <span class="activator grey-text text-darken-4">
+                                        <span class="activator grey-text text-darken-4" style={{ cursor: "pointer" }}>
                                             <i class="material-icons right">chat</i>
                                         </span>
                                         <p>{item.likes.length} likes</p>
@@ -236,7 +239,13 @@ const Home = () => {
                                         {/* <p>Here is some more information about this product that is only revealed once clicked on.</p> */}
                                         {item.comments.map(comment => (
                                             <h6 style={{ fontWeight: "bolder", fontSize: "14px" }} key={comment._id}>
-                                                <span style={{ color: "blue", fontSize: "14px" }}>{comment.postedBy.name}:</span>{comment.text}
+                                                <span style={{ color: "blue", fontSize: "14px" }}>
+                                                    {comment.postedBy._id === item.postedBy._id ?
+                                                        comment.postedBy.name + " (Author)" :
+                                                        comment.postedBy._id === state._id ?
+                                                            comment.postedBy.name + " (You)" :
+                                                            comment.postedBy.name}:
+                                                </span>{comment.text}
                                             </h6>
 
                                         ))}
@@ -250,7 +259,7 @@ const Home = () => {
                                         }} style={{ display: 'flex' }}>
                                             <input type="text" placeholder='Add a comments' />
                                             <button type="submit" style={{ background: "none", border: "none" }}>
-                                                <i class="material-icons right">send</i>
+                                                <i class="material-icons right" style={{ cursor: "pointer" }}>send</i>
                                             </button>
                                         </form>
                                     </div>
@@ -258,7 +267,7 @@ const Home = () => {
                             )
                         })
                     }
-                </div>
+                </div >
             ) : (
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <div class="preloader-wrapper big active" >
