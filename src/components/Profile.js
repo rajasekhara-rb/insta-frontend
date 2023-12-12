@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PostContext, UserContext } from '../App.js';
+import { BaseUrlContext, UserContext } from '../App.js';
 import axios from 'axios';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import MyPosts from './MyPosts.js';
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
-  // const { contextPosts, setContextPosts } = useContext(PostContext);
+  const baseUrl = useContext(BaseUrlContext);
   // console.log(state)
   const navigate = useNavigate();
   // const [mypics, setPics] = useState([]);
@@ -32,7 +31,7 @@ const Profile = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:5234/user/byid/${state?._id}`, {
+    axios.get(`${baseUrl}/user/byid/${state?._id}`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -141,9 +140,9 @@ const Profile = () => {
             })
           }
         </div> */}
+      <Outlet context={[posts]}/>
       </div>
 
-      <Outlet />
     </div>
   );
 };

@@ -9,7 +9,7 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import CreatePost from './components/CreatePost';
 import Profile from './components/Profile';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { createContext } from 'react';
 import { useEffect } from 'react';
 import { useReducer } from 'react';
@@ -41,13 +41,12 @@ import Following from './components/Following';
 // }
 
 export const UserContext = createContext();
-// export const PostContext = createContext();
+export const BaseUrlContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(UserContext);
-  // const { contextPosts, setContextPosts } = useContext(PostContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -68,9 +67,9 @@ const Routing = () => {
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/editprofile' element={<EditProfile />} />
-        {/* <PostContext.Provider value={{ contextPosts, setContextPosts }}> */}
+
         <Route path='/profile' element={<Profile />}>
-          <Route path='' element={<Profile />} />
+          <Route path='' element={<MyPosts />} />
           <Route path='posts' element={<MyPosts />} />
           <Route path='followers' element={<Followers />} />
           <Route path='following' element={<Following />} />
@@ -78,7 +77,6 @@ const Routing = () => {
         <Route path='/profile/:userid' element={<UserProfile />}>
           <Route path='posts' element={<UserProfile />} />
         </Route>
-        {/* </PostContext.Provider> */}
         <Route path='*' element={<PageNotFound />} />
       </Routes>
 
@@ -91,12 +89,14 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
-      <UserContext.Provider value={{ state, dispatch }}>
-        <Router>
-          <Navbar />
-          <Routing />
-        </Router>
-      </UserContext.Provider>
+      <BaseUrlContext.Provider value="http://localhost:5234">
+        <UserContext.Provider value={{ state, dispatch }}>
+          <Router>
+            <Navbar />
+            <Routing />
+          </Router>
+        </UserContext.Provider>
+      </BaseUrlContext.Provider>
       <ToastContainer />
     </>
   )

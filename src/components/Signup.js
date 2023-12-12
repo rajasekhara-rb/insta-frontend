@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { BaseUrlContext } from '../App';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const baseUrl = useContext(BaseUrlContext);
 
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     const PostData = () => {
-
         if (!name || !email || !password) {
             toast.error("Please fill all details")
             return;
@@ -36,7 +37,7 @@ const Signup = () => {
             return;
         }
 
-        axios.post("http://localhost:5234/user/signup", {
+        axios.post(`${baseUrl}/user/signup`, {
             name,
             email,
             password

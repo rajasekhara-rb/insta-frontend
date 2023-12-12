@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { BaseUrlContext } from '../App';
 
 
 const Signin = () => {
     const navigate = useNavigate();
+    const baseUrl = useContext(BaseUrlContext);
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -36,7 +38,7 @@ const Signin = () => {
         }
 
 
-        axios.post("http://localhost:5234/user/signin", {
+        axios.post(`${baseUrl}/user/signin`, {
             email,
             password
         },

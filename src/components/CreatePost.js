@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BaseUrlContext } from '../App';
 
 const CreatePost = () => {
 
+    const baseUrl = useContext(BaseUrlContext);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [image, setImage] = useState(null);
@@ -15,7 +17,7 @@ const CreatePost = () => {
         //check if an image url is available
         if (url) {
             //make a post request to create a new post
-            axios.post("http://localhost:5234/post/", {
+            axios.post(`${baseUrl}/post/`, {
                 title,
                 body,
                 photo: url

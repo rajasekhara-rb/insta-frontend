@@ -1,24 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../App';
+import { BaseUrlContext, UserContext } from '../App';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import M from "materialize-css";
-
-// M.AutoInit();
-
 
 const Home = () => {
-
-    useEffect(() => {
-        let elems = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(elems, { inDuration: 220, outDuration: 225 });
-    })
-
-    const [data, setData] = useState([]);
     const { state, dispatch } = useContext(UserContext);
+    const baseUrl = useContext(BaseUrlContext);
+    const [data, setData] = useState([]);
     // console.log(state);
-    console.log(data);
+    // console.log(data);
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -26,7 +17,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:5234/post/allposts", {
+        axios.get(`${baseUrl}/post/allposts`, {
             headers: {
                 "Content-type": "Application/json",
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
@@ -40,7 +31,7 @@ const Home = () => {
 
     const deletePost = (id) => {
         // console.log(id)
-        axios.delete(`http://localhost:5234/post/${id}`, {
+        axios.delete(`${baseUrl}/post/${id}`, {
             //include authorization token 
             headers: {
                 "Content-Type": "application/json",
@@ -57,7 +48,7 @@ const Home = () => {
 
     const likePost = (id) => {
         // console.log(id)
-        axios.put("http://localhost:5234/post/like",
+        axios.put(`${baseUrl}/post/like`,
             { postId: id },
             {
                 headers: {
@@ -83,7 +74,7 @@ const Home = () => {
 
     const unlikePost = (id) => {
         // console.log(id)
-        axios.put("http://localhost:5234/post/dislike",
+        axios.put(`${baseUrl}/post/dislike`,
             {
                 postId: id
             },
@@ -114,7 +105,7 @@ const Home = () => {
             toast.error("Comment can't be empty");
             return
         }
-        axios.put("http://localhost:5234/post/comment",
+        axios.put(`${baseUrl}/post/comment`,
             { postId, text },
             {
                 headers: {

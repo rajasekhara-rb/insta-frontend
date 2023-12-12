@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../App';
+import { BaseUrlContext, UserContext } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const EditProfile = () => {
     const navigate = useNavigate();
     const { state, dispatch } = useContext(UserContext);
+    const baseUrl = useContext(BaseUrlContext);
 
     const [profile, setProfile] = useState([]);
     // console.log(profile);
@@ -16,7 +17,7 @@ const EditProfile = () => {
     // console.log(imageUrl)
 
     useEffect(() => {
-        axios.get(`http://localhost:5234/user/byid/${state?._id}`, {
+        axios.get(`${baseUrl}/user/byid/${state?._id}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -52,7 +53,7 @@ const EditProfile = () => {
                 // if (imageUrl) {
 
                 const photo = resImageUrl;
-                await axios.put(`http://localhost:5234/user/editprofile`,
+                await axios.put(`${baseUrl}/user/editprofile`,
                     {
                         name,
                         about,

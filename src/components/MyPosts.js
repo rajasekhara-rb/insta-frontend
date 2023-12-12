@@ -1,18 +1,21 @@
-import React, { useContext } from 'react';
-import { PostContext } from '../App';
-
+import React, { useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 const MyPosts = () => {
-    // const { contextPosts, setContextPosts } = useContext(PostContext);
+
+    const [posts] = useOutletContext();
+
     return (
-        <div className='postimages' id="test-swipe-1">
-            {
-                // .map(item => {
-                //     return (
-                //         <img key={item._id} className='post materialboxed' src={item.photo} alt={item.title} />
-                //     )
-                // })
-            }
+        <div style={{ maxWidth: "800px", margin: "0px auto" }}>
+            <div className='postimages' id="test-swipe-1">
+                {
+                    posts.map(item => {
+                        return (
+                            <img key={item._id} className='post materialboxed' src={item.photo} alt={item.title} />
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 };
