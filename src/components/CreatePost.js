@@ -74,7 +74,8 @@ const CreatePost = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            <input
+            <textarea
+                class="materialize-textarea"
                 type="text"
                 placeholder="Add your content Here."
                 value={body}

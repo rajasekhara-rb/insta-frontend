@@ -1,10 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BaseUrlContext, UserContext } from '../App';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import M from 'materialize-css';
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+
+        M.AutoInit();
+    })
+
     const { state, dispatch } = useContext(UserContext);
     const baseUrl = useContext(BaseUrlContext);
     const [data, setData] = useState([]);
@@ -147,12 +156,12 @@ const Home = () => {
                                                 alt='profile' />
                                             <h5 style={{ marginLeft: "10px" }}>{item.postedBy.name} {item.postedBy._id === state._id ? "(You)" : ""}</h5>
                                         </Link>
-                                        {/* <div style={{ padding: "10px" }} className="material-icons dropdown-trigger" data-target='dropdown1'>
+                                        <div style={{ padding: "0 10px" }} className="material-icons dropdown-trigger" data-target='dropdown1'>
                                             <i style={{ float: "right" }} className="material-icons">
                                                 more_horiz
                                             </i>
-                                        </div> */}
-                                        {/* <ul className='dropdown-content' id='dropdown1'>
+                                        </div>
+                                        <ul className='dropdown-content' id='dropdown1'>
                                             <li>
                                                 <Link to={item.postedBy !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
                                                     <i style={{ float: "left" }} className="material-icons">
@@ -166,26 +175,32 @@ const Home = () => {
                                                 </i> Share
                                             </li>
                                             <li className="divider"></li>
-                                            <li>
-                                                {item.postedBy._id === state._id && (
-                                                    <li>
-                                                        <i style={{ float: "right" }} className="material-icons" onClick={() => deletePost(item._id)}>
-                                                            delete
-                                                        </i> Delete
-                                                    </li>
-                                                )}
-                                            </li>
-                                        </ul> */}
+                                            {item.postedBy._id === state._id && (
+                                                <li>
+                                                    <i style={{ float: "left" }} className="material-icons" onClick={() => deletePost(item._id)}>
+                                                        delete
+                                                    </i> Delete
+                                                </li>
+                                            )}
+
+                                            {item.postedBy._id === state._id && (<li onClick={() => {
+                                                navigate(`/editpost/${item._id}`)
+                                            }}>
+                                                <i style={{ float: "left" }} className="material-icons">
+                                                    edit
+                                                </i> Edit
+                                            </li>)}
+                                        </ul>
                                         {/* {item.postedBy._id !== state._id && (
                                             <i style={{ float: "right" }} className="material-icons">
                                                 more_horiz
                                             </i>
                                         )} */}
-                                        {item.postedBy._id === state._id && (
+                                        {/* {item.postedBy._id === state._id && (
                                             <i style={{ float: "right", cursor: 'pointer' }} className="material-icons" onClick={() => deletePost(item._id)}>
                                                 delete
                                             </i>
-                                        )}
+                                        )} */}
                                     </h5>
 
                                     <div className='card-image'>

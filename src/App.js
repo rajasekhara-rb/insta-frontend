@@ -20,6 +20,7 @@ import EditProfile from './components/EditProfile';
 import MyPosts from './components/MyPosts';
 import Followers from './components/Followers';
 import Following from './components/Following';
+import EditPost from './components/EditPost';
 
 // function App() {
 //   return (
@@ -66,8 +67,8 @@ const Routing = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
-        <Route path='/editprofile' element={<EditProfile />} />
-
+        <Route path='/editpost/:id' element={<EditPost/>}/>
+        <Route path='/editprofile' element={<EditProfile />}/>
         <Route path='/profile' element={<Profile />}>
           <Route path='' element={<MyPosts />} />
           <Route path='posts' element={<MyPosts />} />
