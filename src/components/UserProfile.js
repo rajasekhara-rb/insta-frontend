@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { UserContext } from '../App';
+import { BaseUrlContext, UserContext } from '../App';
 
 
 const UserProfile = () => {
@@ -9,12 +9,12 @@ const UserProfile = () => {
     const [userProfile, setProfile] = useState(null);
     // console.log(userProfile)
     //get the user id from routes paramaters
-    const { state, dispatch } = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const { userid } = useParams();
-
+    const baseUrl = useContext(BaseUrlContext);
 
     useEffect(() => {
-        axios.get(`http://localhost:5234/user/byid/${userid}`, {
+        axios.get(`${baseUrl}/user/byid/${userid}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -26,12 +26,12 @@ const UserProfile = () => {
             console.log(error);
         })
 
-    }, [userProfile])
+    }, [userProfile, baseUrl, userid])
 
 
     const followUser = (id) => {
         // console.log(id)
-        axios.put("http://localhost:5234/user/follow",
+        axios.put(`${baseUrl}/user/follow`,
             { followId: id },
             {
                 headers: {
@@ -57,7 +57,7 @@ const UserProfile = () => {
 
     const UnFollowUser = (id) => {
         // console.log(id)
-        axios.put("http://localhost:5234/user/unfollow",
+        axios.put(`${baseUrl}/user/unfollow`,
             {
                 unfollowId: id
             },
@@ -98,7 +98,7 @@ const UserProfile = () => {
                         borderRadius: "20px"
                     }} className='z-depth-1'>
                         <div style={{ width: "30%" }}>
-                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
+                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "10px solid #ff8a80" }}
                                 src={userProfile.user.photo ? userProfile.user.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                                 alt="img1" />
                         </div>
@@ -109,15 +109,15 @@ const UserProfile = () => {
                                     <h5>{userProfile.user.email}</h5>
                                 </div>
                                 {userProfile.user.followers.includes(state._id) ? (
-                                    <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+                                    <button class="waves-effect waves-light btn red lighten-2" onClick={() => {
                                         UnFollowUser(userProfile.user._id)
                                     }}>
-                                        <i class="material-icons right">person</i>UnFollow</a>
+                                        <i class="material-icons right">person</i>UnFollow</button>
                                 ) : (
-                                    <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+                                    <button class="waves-effect waves-light btn red lighten-2" onClick={() => {
                                         followUser(userProfile.user._id)
                                     }}>
-                                        <i class="material-icons right">person_add</i>Follow</a>
+                                        <i class="material-icons right">person_add</i>Follow</button>
                                 )}
                             </div>
                             <div style={

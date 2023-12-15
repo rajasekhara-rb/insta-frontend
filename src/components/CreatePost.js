@@ -30,7 +30,7 @@ const CreatePost = () => {
             })
                 .then(response => {
                     const data = response.data;
-                    console.log(data);
+                    // console.log(data);
                     //check if error
                     if (data.error) {
                         console.log("Something went wrong");
@@ -42,11 +42,11 @@ const CreatePost = () => {
                     console.error(error);
                 });
         }
-    }, [url, body, title, navigate]);
+    }, [url, body, title, navigate, baseUrl]);
 
     const postDetails = async () => {
         const data = new FormData();
-        console.log(data)
+        // console.log(data)
         data.append("file", image);
         // set upload preset 
         data.append('upload_preset', "instagram");
@@ -59,7 +59,6 @@ const CreatePost = () => {
             // retrive the url of the image uploded secure_url or url
             const imageUrl = response.data.secure_url;
             setUrl(imageUrl);
-
         } catch (error) {
             console.log(error)
         }

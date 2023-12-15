@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BaseUrlContext, UserContext } from '../App';
+import { BaseUrlContext } from '../App';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Following = () => {
 
-    const { state, dispatch } = useContext(UserContext);
     const baseUrl = useContext(BaseUrlContext);
 
     const [following, setFollowing] = useState([]);
@@ -19,7 +18,7 @@ const Following = () => {
         }).then((res) => {
             setFollowing(res.data.following);
         })
-    }, [state])
+    }, [baseUrl])
 
     return (
         <>

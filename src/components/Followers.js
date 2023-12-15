@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BaseUrlContext, UserContext } from '../App';
+import { BaseUrlContext } from '../App';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Followers = () => {
 
-    const { state, dispatch } = useContext(UserContext);
     const baseUrl = useContext(BaseUrlContext);
 
     const [followers, setFollowers] = useState([]);
-    console.log(followers);
+    // console.log(followers);
     useEffect(() => {
         axios.get(`${baseUrl}/user/myfollowers`, {
             headers: {
@@ -19,7 +18,7 @@ const Followers = () => {
         }).then((res) => {
             setFollowers(res.data.followers);
         })
-    }, [state])
+    }, [baseUrl])
 
     return (
         <>

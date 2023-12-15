@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import M from 'materialize-css';
 
 

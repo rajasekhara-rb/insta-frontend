@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const EditProfile = () => {
     const navigate = useNavigate();
-    const { state, dispatch } = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const baseUrl = useContext(BaseUrlContext);
 
     const [profile, setProfile] = useState([]);
@@ -30,7 +30,7 @@ const EditProfile = () => {
             console.log(error);
         })
 
-    }, []);
+    }, [baseUrl, state]);
 
     const updateProfile = async (e) => {
         e.preventDefault();
@@ -51,7 +51,6 @@ const EditProfile = () => {
                 // })
                 // .then((res) => {
                 // if (imageUrl) {
-
                 const photo = resImageUrl;
                 await axios.put(`${baseUrl}/user/editprofile`,
                     {
@@ -109,7 +108,7 @@ const EditProfile = () => {
                     borderRadius: "20px"
                 }}>
                 <img
-                    style={{ width: "250px" }}
+                    style={{ width: "250px", height: "250px", border: "10px solid #ff8a80" }}
                     src={profile.photo ? profile.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                     alt={profile.name + "profile pic"}
                     class="circle responsive-img">

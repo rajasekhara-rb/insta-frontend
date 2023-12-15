@@ -5,8 +5,8 @@ import axios from 'axios';
 
 const EditPost = () => {
     const baseUrl = useContext(BaseUrlContext);
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
+    // const [title, setTitle] = useState("");
+    // const [body, setBody] = useState("");
     const [post, setPost] = useState();
 
     const navigate = useNavigate();
@@ -22,19 +22,18 @@ const EditPost = () => {
         })
             .then(response => {
                 const data = response.data;
-                console.log(data);
+                // console.log(data);
                 if (data.error) {
                     console.log("Something went wrong");
                 } else {
                     // navigate("/");
                     setPost(data.post);
-
                 }
             }).catch(error => {
                 console.error(error);
             });
 
-    }, []);
+    }, [baseUrl, id]);
 
     const editPost = async () => {
         axios.put(`${baseUrl}/post/update/${id}`,

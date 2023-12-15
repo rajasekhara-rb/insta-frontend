@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const { state, dispatch } = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const baseUrl = useContext(BaseUrlContext);
   // console.log(state)
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Profile = () => {
       console.log(error);
     })
 
-  }, [state]);
+  }, [state, baseUrl]);
 
   return (
     <div>
@@ -80,7 +80,7 @@ const Profile = () => {
           borderRadius: "20px"
         }} className='z-depth-1'>
           <div style={{ width: "30%" }}>
-            <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "2px solid black" }}
+            <img style={{ width: "160px", height: "160px", borderRadius: "80px", border: "10px solid #ff8a80" }}
               src={profile.photo ? profile.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
               alt="img1" />
             {/* <i className="material-icons">
@@ -90,10 +90,10 @@ const Profile = () => {
           <div style={{ width: '70%' }}>
             <div style={{ display: "flex", justifyContent: 'space-between' }}>
               <h4>{profile.name ? profile.name : "Loading..."}</h4>
-              <a class="waves-effect waves-light btn red lighten-2" onClick={() => {
+              <button class="waves-effect waves-light btn red lighten-2" onClick={() => {
                 navigate("/editprofile")
               }}>
-                <i class="material-icons right">edit</i>Edit</a>
+                <i class="material-icons right">edit</i>Edit</button>
             </div>
             <div style={
               {

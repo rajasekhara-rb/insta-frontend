@@ -9,7 +9,7 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import CreatePost from './components/CreatePost';
 import Profile from './components/Profile';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { createContext } from 'react';
 import { useEffect } from 'react';
 import { useReducer } from 'react';
@@ -47,7 +47,7 @@ export const BaseUrlContext = createContext();
 const Routing = () => {
   const navigate = useNavigate();
 
-  const { state, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -58,7 +58,7 @@ const Routing = () => {
       navigate("/signin");
     }
 
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
     <>
@@ -67,8 +67,8 @@ const Routing = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
-        <Route path='/editpost/:id' element={<EditPost/>}/>
-        <Route path='/editprofile' element={<EditProfile />}/>
+        <Route path='/editpost/:id' element={<EditPost />} />
+        <Route path='/editprofile' element={<EditProfile />} />
         <Route path='/profile' element={<Profile />}>
           <Route path='' element={<MyPosts />} />
           <Route path='posts' element={<MyPosts />} />
@@ -90,7 +90,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
-      <BaseUrlContext.Provider value="http://localhost:5234">
+      <BaseUrlContext.Provider value="https://instagram-api-4qpz.onrender.com">
         <UserContext.Provider value={{ state, dispatch }}>
           <Router>
             <Navbar />
