@@ -100,3 +100,23 @@ textarea[type=text]:focus {
   align-items: 'center';
   text-align: center;
 }
+
+.modal {
+  width: 80vw;
+  /* height: auto; */
+}
+
+.modal-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+/* .modal-content:nth-child(1){
+  width: 50%;
+}
+
+.modal-content:nth-child(2){
+  width: 50%;
+} */

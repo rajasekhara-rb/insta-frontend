@@ -178,7 +178,7 @@ const Home = () => {
                                     </h5>
 
                                     <div className='card-image'>
-                                        <img className='post activator' src={item.photo} alt="image1" style={{ borderRadius: "2%" }} />
+                                        <img data-target={`${item._id}`} className='post modal-trigger' src={item.photo} alt="image1" style={{ borderRadius: "2%", cursor:"pointer" }} />
                                     </div>
                                     <div className='card-content'>
                                         {/* <i className="material-icons" style={{ color: "red", fontSize: "30px" }}>favorite</i> */}
@@ -245,7 +245,27 @@ const Home = () => {
                                             </button>
                                         </form>
                                     </div>
+
+                                    {/* modal open opening single post  */}
+                                    {/* <button data-target="modal1" class="btn modal-trigger">Modal</button> */}
+
+                                    <div id={`${item._id}`} class="modal">
+                                        <div class="modal-content">
+                                            <div>
+                                                <h4>{item.title}</h4>
+                                                <img className='materialboxed' width="50%" src={item.photo} />
+                                                <p>{item.body}</p>
+                                            </div>
+                                            {/* <div>
+                                                comments here
+                                            </div> */}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="modal-close waves-effect waves-green btn-flat">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
+
                             )
                         })
                     }
