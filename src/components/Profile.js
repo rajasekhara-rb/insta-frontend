@@ -93,10 +93,10 @@ const Profile = () => {
           <div style={{ width: '70%' }}>
             <div style={{ display: "flex", justifyContent: 'space-between' }}>
               <h4>{profile.name ? profile.name : "Loading..."}</h4>
-              <button class="waves-effect waves-light btn red lighten-2" onClick={() => {
-                navigate("/editprofile")
-              }}>
-                <i class="material-icons right">edit</i>Edit</button>
+              <Link to="edit" class="waves-effect waves-light btn red lighten-2"
+              //  onClick={() => {navigate("/editprofile")}}
+               >
+                <i class="material-icons right">edit</i>Edit</Link>
             </div>
             <div style={
               {
@@ -144,8 +144,8 @@ const Profile = () => {
             })
           }
         </div> */}
-        <Outlet context={[posts, proflephotos]} className="no-autoinit" />
       </div>
+        <Outlet context={[posts, proflephotos]} className="no-autoinit" />
 
     </div>
   );

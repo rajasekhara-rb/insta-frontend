@@ -148,18 +148,18 @@ const EditProfile = () => {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "25px",
+                    margin: "0px",
                     border: "1px solid grey",
                     padding: "10px",
                     width: "80%",
                     borderRadius: "20px"
                 }}>
-                <img
+                {/* <img
                     style={{ width: "250px", height: "250px", border: "10px solid #ff8a80" }}
                     src={profile.photo ? profile.photo : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"}
                     alt={profile.name + "profile pic"}
                     class="circle responsive-img">
-                </img>
+                </img> */}
                 <form class="col s12"
                 // style={{ width: "50%" }}
                 >
@@ -177,7 +177,7 @@ const EditProfile = () => {
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">username</i>
+                            <i class="material-icons prefix">perm_identity</i>
                             <input id="icon_prefix" type="text" class="validate"
                                 value={profile.username}
                                 name="username"

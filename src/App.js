@@ -22,6 +22,7 @@ import Followers from './components/Followers';
 import Following from './components/Following';
 import EditPost from './components/EditPost';
 import OldProfilePics from './components/OldProfilePics';
+import Post from './components/Post';
 
 // function App() {
 //   return (
@@ -65,14 +66,15 @@ const Routing = () => {
     <>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/post/:id' element={<Post />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/editpost/:id' element={<EditPost />} />
-        <Route path='/editprofile' element={<EditProfile />} />
         <Route path='/profile' element={<Profile />}>
+          <Route path='edit' element={<EditProfile />} />
           <Route path='' element={<MyPosts />} />
-          <Route path='oldprofiles' element={<OldProfilePics/>}/>
+          <Route path='oldprofiles' element={<OldProfilePics />} />
           <Route path='posts' element={<MyPosts />} />
           <Route path='followers' element={<Followers />} />
           <Route path='following' element={<Following />} />
@@ -82,7 +84,6 @@ const Routing = () => {
         </Route>
         <Route path='*' element={<PageNotFound />} />
       </Routes>
-
     </>
   )
 
@@ -92,8 +93,9 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
+      {/* http://localhost:5234 */}
       {/* https://instagram-api-4qpz.onrender.com */}
-      <BaseUrlContext.Provider value="http://localhost:5234">
+      <BaseUrlContext.Provider value="https://instagram-api-4qpz.onrender.com">
         <UserContext.Provider value={{ state, dispatch }}>
           <Router>
             <Navbar />
