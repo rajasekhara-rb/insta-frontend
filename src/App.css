@@ -152,3 +152,9 @@ textarea[type=text]:focus {
 .modal-footer{
   width: 45% !important;
 }
+
+.profile-tabs{
+  display: flex !important;
+  justify-content: space-evenly !important;
+  align-items: center !important;
+}

@@ -12,6 +12,8 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState([]);
   // console.log(profile)
+  const [proflephotos, setProfilePhotos] = useState([]);
+  // console.log(proflephotos)
 
   // useEffect(() => {
   //   //use axios with http GET request to fetch user post who is logged in 
@@ -40,6 +42,7 @@ const Profile = () => {
       // console.log(response.data);
       setProfile(response.data.user);
       setPosts(response.data.posts);
+      setProfilePhotos(response.data.user.prevPhotos)
       // setContextPosts(response.data.posts);
     }).catch(error => {
       console.log(error);
@@ -122,10 +125,11 @@ const Profile = () => {
           </div>
         </div>
 
-        <ul id="tabs-swipe-demo" class="tabs">
-          <li class="tab col s3"><Link to="posts">Posts</Link></li>
-          <li class="tab col s3"><Link class="active" to="followers">Followers</Link></li>
-          <li class="tab col s3"><Link to="following">Following</Link></li>
+        <ul className='profile-tabs tabs no-autoinit'>
+          <li className='tab no-autoinit'><Link to="posts">Posts</Link></li>
+          <li className='tab no-autoinit'><Link to="oldprofiles">Profile Photos</Link></li>
+          <li className='tab no-autoinit'><Link class="active" to="followers">Followers</Link></li>
+          <li className='tab no-autoinit'><Link to="following">Following</Link></li>
         </ul>
         {/* <div id="test-swipe-1" class="col s12 blue">Test 1</div>
         <div id="test-swipe-2" class="col s12 red">Test 2</div>
@@ -140,7 +144,7 @@ const Profile = () => {
             })
           }
         </div> */}
-      <Outlet context={[posts]}/>
+        <Outlet context={[posts, proflephotos]} className="no-autoinit" />
       </div>
 
     </div>

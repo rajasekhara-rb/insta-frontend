@@ -3,21 +3,27 @@ import { BaseUrlContext, UserContext } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import M from 'materialize-css';
 
 const EditProfile = () => {
     const navigate = useNavigate();
     const { state } = useContext(UserContext);
     const baseUrl = useContext(BaseUrlContext);
-
+    console.log(state);
     const [profile, setProfile] = useState([]);
-    // console.log(profile);
+    console.log(profile);
     const [image, setImage] = useState(null);
+    console.log(image)
+    const [slectedProfileImage, setSelectedProfileImage] = useState(null);
+    console.log(slectedProfileImage)
     // const [imageUrl, setImageUrl] = useState(null);
     // console.log(image)
     // console.log(imageUrl)
 
+    M.AutoInit()
+
     useEffect(() => {
-        axios.get(`${baseUrl}/user/byid/${state?._id}`, {
+        axios.get(`${baseUrl}/user/byid/${state._id}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -32,31 +38,69 @@ const EditProfile = () => {
 
     }, [baseUrl, state]);
 
+    const uploadPhotoToCloudinary = async () => {
+        if (image !== null) {
+            const data = new FormData();
+            data.append("file", image);
+            data.append('upload_preset', "instagram");
+            data.append('cloud_name', "rajasekhararb");
+
+            const response = await axios.post("https://api.cloudinary.com/v1_1/rajasekhararb/image/upload/", data);
+            // console.log(response);
+            // .then((res) => {
+            //     console.log(res)
+            const resImageUrl = response.data.secure_url;
+            // setImageUrl(resImageUrl);
+            // })
+            // .then((res) => {
+            // if (imageUrl) {
+            return resImageUrl;
+        } else {
+            toast.error("Photo not uploaded")
+        }
+    }
+
     const updateProfile = async (e) => {
         e.preventDefault();
         try {
-            const { name, about } = profile;
-            if (name && image) {
-                const data = new FormData();
-                data.append("file", image);
-                data.append('upload_preset', "instagram");
-                data.append('cloud_name', "rajasekhararb");
+            const { name, username, about, saveCurrentPhoto } = profile;
+            const photo = async () => {
+                if (image) {
+                    const cloudPhoto = await uploadPhotoToCloudinary();
+                    // console.log(cloudPhoto)
+                    return cloudPhoto
+                } else if (slectedProfileImage) {
+                    return slectedProfileImage
+                } else {
+                    toast.error("Please Upload or select profile photo");
+                    return null
+                }
+            }
 
-                const response = await axios.post("https://api.cloudinary.com/v1_1/rajasekhararb/image/upload/", data);
+            const reqPhoto = await photo();
+
+            if (name && username && reqPhoto) {
+                // const data = new FormData();
+                // data.append("file", image);
+                // data.append('upload_preset', "instagram");
+                // data.append('cloud_name', "rajasekhararb");
+
+                // const response = await axios.post("https://api.cloudinary.com/v1_1/rajasekhararb/image/upload/", data);
                 // console.log(response);
                 // .then((res) => {
                 //     console.log(res)
-                const resImageUrl = response.data.secure_url;
+                // const resImageUrl = response.data.secure_url;
                 // setImageUrl(resImageUrl);
                 // })
                 // .then((res) => {
                 // if (imageUrl) {
-                const photo = resImageUrl;
                 await axios.put(`${baseUrl}/user/editprofile`,
                     {
                         name,
+                        username,
                         about,
-                        photo
+                        photo: reqPhoto,
+                        saveCurrentPhoto,
                     },
                     {
                         headers: {
@@ -79,13 +123,16 @@ const EditProfile = () => {
         } catch (error) {
             console.log(error);
         }
-
-
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProfile({ ...profile, [name]: value });
+        if (e.target.type === "checkbox") {
+            // if (e.checked === "checked") {
+            setProfile({ ...profile, saveCurrentPhoto: e.target.checked ? true : false })
+            // }
+        }
     }
 
     return (
@@ -130,6 +177,18 @@ const EditProfile = () => {
 
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">username</i>
+                            <input id="icon_prefix" type="text" class="validate"
+                                value={profile.username}
+                                name="username"
+                                onChange={handleChange}
+                            ></input>
+                            <label for="icon_prefix">Username</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
                             <i class="material-icons prefix">email</i>
                             <input disabled id="email" type="email" class="validate"
                                 value={profile.email}
@@ -152,9 +211,9 @@ const EditProfile = () => {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="file-field input-field col s12">
+                        <div class="file-field input-field col s8">
                             <div class="btn">
-                                <span>File</span>
+                                <span>Upload</span>
                                 <input type="file" onChange={(e) => {
                                     setImage(e.target.files[0]);
                                 }} />
@@ -163,6 +222,35 @@ const EditProfile = () => {
                                 <input class="file-path validate" type="text" />
                             </div>
                         </div>
+
+                        <div class="input-field col s4">
+                            <select class="icons" onChange={(e) => {
+                                setSelectedProfileImage(e.target.value)
+                            }}>
+                                <option value="" disabled selected>Choose previous profile image</option>
+                                {profile.prevPhotos?.map((photo, i) => {
+                                    return (
+                                        <option value={photo} data-icon={photo}>{`Photo ${i + 1}`}</option>
+                                    )
+                                })}
+                                {/* <option value="" data-icon="images/office.jpg">example 2</option> */}
+                                {/* <option value="" data-icon="images/yuna.jpg">example 3</option> */}
+                            </select>
+                            <label>Images in select</label>
+                        </div>
+
+                    </div>
+                    <div className='row'>
+                        <p>
+                            <label>
+                                <input onChange={handleChange}
+                                    type="checkbox" name='saveCurrentPhoto' class="filled-in"
+                                // checked="checked"
+                                />
+                                <span>Save Current Photo</span>
+                            </label>
+                        </p>
+
                     </div>
 
                     <button class="btn waves-effect waves-light" type="button" name="action"

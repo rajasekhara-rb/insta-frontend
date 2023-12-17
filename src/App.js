@@ -21,6 +21,7 @@ import MyPosts from './components/MyPosts';
 import Followers from './components/Followers';
 import Following from './components/Following';
 import EditPost from './components/EditPost';
+import OldProfilePics from './components/OldProfilePics';
 
 // function App() {
 //   return (
@@ -71,6 +72,7 @@ const Routing = () => {
         <Route path='/editprofile' element={<EditProfile />} />
         <Route path='/profile' element={<Profile />}>
           <Route path='' element={<MyPosts />} />
+          <Route path='oldprofiles' element={<OldProfilePics/>}/>
           <Route path='posts' element={<MyPosts />} />
           <Route path='followers' element={<Followers />} />
           <Route path='following' element={<Following />} />
@@ -90,7 +92,8 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
-      <BaseUrlContext.Provider value="https://instagram-api-4qpz.onrender.com">
+      {/* https://instagram-api-4qpz.onrender.com */}
+      <BaseUrlContext.Provider value="http://localhost:5234">
         <UserContext.Provider value={{ state, dispatch }}>
           <Router>
             <Navbar />
