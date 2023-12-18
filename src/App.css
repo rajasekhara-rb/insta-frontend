@@ -177,3 +177,7 @@ textarea[type=text]:focus {
   justify-content: space-evenly !important;
   align-items: center !important;
 }
+
+img{
+  pointer-events: auto;
+}

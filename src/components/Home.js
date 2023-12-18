@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 // import PostDropDown from './PostDropDown';
 import M from 'materialize-css';
 
+
 const Home = () => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -178,6 +179,7 @@ const Home = () => {
                                         </h5>
 
                                         <div className='card-image'>
+                                            {/* <div style={{ backgroundImage: `url(${item.photo})`, width: "500px", height:"500px", backgroundRepeat:"no-repeat", objectFit:"contain" }}></div> */}
                                             <img data-target={`${item._id}`} className='post modal-trigger' src={item.photo} alt="image1" style={{ borderRadius: "2%", cursor: "pointer" }} />
                                         </div>
                                         <div className='card-content'>

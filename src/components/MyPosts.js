@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 
 const MyPosts = () => {
 
-    const [posts] = useOutletContext();
+    const {posts} = useOutletContext();
 
     return (
         <div style={{ maxWidth: "800px", margin: "0px auto", height:"100%" }}>
@@ -11,7 +11,9 @@ const MyPosts = () => {
                 {
                     posts.map(item => {
                         return (
-                            <img key={item._id} className='post materialboxed' src={item.photo} alt={item.title} />
+                            <div style={{width:"400px", height:"auto"}}>
+                                <img key={item._id} className='materialboxed responsive-img' src={item.photo} alt={item.title} />
+                            </div>
                         )
                     })
                 }

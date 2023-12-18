@@ -52,7 +52,7 @@ const Navbar = () => {
             </div> */}
 
             <nav>
-                <div class="nav-wrapper">
+                <div class="nav-wrapper white">
                     <a href="/" class="brand-logo">Instagram</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         {renderList()}

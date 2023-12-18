@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BaseUrlContext, UserContext } from '../App.js';
 import axios from 'axios';
 import { Link, Outlet } from 'react-router-dom';
+import M from 'materialize-css';
 
 const Profile = () => {
   const { state } = useContext(UserContext);
@@ -14,6 +15,7 @@ const Profile = () => {
   // console.log(profile)
   const [proflephotos, setProfilePhotos] = useState([]);
   // console.log(proflephotos)
+  M.AutoInit()
 
   // useEffect(() => {
   //   //use axios with http GET request to fetch user post who is logged in 
@@ -145,7 +147,7 @@ const Profile = () => {
           }
         </div> */}
       </div>
-      <Outlet context={[posts, proflephotos]} className="no-autoinit" />
+      <Outlet context={{posts, proflephotos, setProfilePhotos}} className="no-autoinit" />
 
     </div>
   );

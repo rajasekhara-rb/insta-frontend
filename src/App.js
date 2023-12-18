@@ -48,7 +48,7 @@ export const BaseUrlContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
-
+  
   const { dispatch } = useContext(UserContext);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Routing = () => {
           <Route path='edit' element={<EditProfile />} />
           <Route path='' element={<MyPosts />} />
           <Route path='oldprofiles' element={<OldProfilePics />} />
-          <Route path='posts' element={<MyPosts/>} />
+          <Route path='posts' element={<MyPosts />} />
           <Route path='followers' element={<Followers />} />
           <Route path='following' element={<Following />} />
         </Route>
@@ -93,9 +93,9 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initalState);
   return (
     <>
-      {/* http://localhost:5234 */}
+      {/* const url = ahttp://localhost:5234 */}
       {/* https://instagram-api-4qpz.onrender.com */}
-      <BaseUrlContext.Provider value="https://instagram-api-4qpz.onrender.com">
+      <BaseUrlContext.Provider value="http://localhost:5234">
         <UserContext.Provider value={{ state, dispatch }}>
           <Router>
             <Navbar />
