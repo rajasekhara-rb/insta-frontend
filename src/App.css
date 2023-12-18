@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Grand+Hotel&family=Lato:ital,wght@0,300;0,400;0,700;1,400;1,700&family=Poppins:wght@300&display=swap');
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -100,6 +100,18 @@ textarea[type=text]:focus {
   max-height: 100vh !important;
 }
 
+.editpostcontainer {
+  margin: 30px auto !important;
+  max-width: 800px !important;
+  padding: 25px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-family: cursive;
+  font-size: 20px;
+  max-height: 100vh !important;
+}
+
 .profile-vals {
   display: 'flex';
   flex-direction: 'column';
@@ -156,11 +168,11 @@ textarea[type=text]:focus {
   padding: 10px;
 } */
 
-.modal-footer{
+.modal-footer {
   width: 45% !important;
 }
 
-.profile-tabs{
+.profile-tabs {
   display: flex !important;
   justify-content: space-evenly !important;
   align-items: center !important;

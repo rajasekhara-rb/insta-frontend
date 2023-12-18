@@ -2,7 +2,7 @@ import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 const OldProfilePics = () => {
-    const [posts, proflephotos] = useOutletContext();
+    const [proflephotos] = useOutletContext();
     // console.log(proflephotos)
     return (
         <div style={{ maxWidth: "800px", margin: "0px auto" }}>

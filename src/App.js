@@ -75,7 +75,7 @@ const Routing = () => {
           <Route path='edit' element={<EditProfile />} />
           <Route path='' element={<MyPosts />} />
           <Route path='oldprofiles' element={<OldProfilePics />} />
-          <Route path='posts' element={<MyPosts />} />
+          <Route path='posts' element={<MyPosts/>} />
           <Route path='followers' element={<Followers />} />
           <Route path='following' element={<Following />} />
         </Route>

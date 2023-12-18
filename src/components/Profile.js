@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BaseUrlContext, UserContext } from '../App.js';
 import axios from 'axios';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const Profile = () => {
   const { state } = useContext(UserContext);
   const baseUrl = useContext(BaseUrlContext);
   // console.log(state)
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const [mypics, setPics] = useState([]);
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState([]);
@@ -95,7 +95,7 @@ const Profile = () => {
               <h4>{profile.name ? profile.name : "Loading..."}</h4>
               <Link to="edit" class="waves-effect waves-light btn red lighten-2"
               //  onClick={() => {navigate("/editprofile")}}
-               >
+              >
                 <i class="material-icons right">edit</i>Edit</Link>
             </div>
             <div style={
@@ -145,7 +145,7 @@ const Profile = () => {
           }
         </div> */}
       </div>
-        <Outlet context={[posts, proflephotos]} className="no-autoinit" />
+      <Outlet context={[posts, proflephotos]} className="no-autoinit" />
 
     </div>
   );
