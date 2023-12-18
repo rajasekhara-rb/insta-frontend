@@ -95,7 +95,7 @@ function App() {
     <>
       {/* const url = ahttp://localhost:5234 */}
       {/* https://instagram-api-4qpz.onrender.com */}
-      <BaseUrlContext.Provider value="http://localhost:5234">
+      <BaseUrlContext.Provider value="https://instagram-api-4qpz.onrender.com">
         <UserContext.Provider value={{ state, dispatch }}>
           <Router>
             <Navbar />
