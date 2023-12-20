@@ -23,16 +23,24 @@ const Following = () => {
     return (
         <>
             <div style={{ maxWidth: "800px", maxHeight: "150px", margin: "10px auto" }}>
-                {following.map((user) => {
-                    return (
-                        <Link to={`/profile/${user._id}`} key={user._id} style={{ margin: "10px" }}>
-                            <div class="chip">
-                                <img src={user.photo} alt="Contact Person" />
-                                {user.name}
-                            </div>
-                        </Link>
-                    )
-                })}
+                {following.length <= 0 ? (
+                    <h5 >Oops! You did not followed anyone</h5>
+                ) : (
+                    <div>
+                        {
+                            following.map((user) => {
+                                return (
+                                    <Link to={`/profile/${user._id}`} key={user._id} style={{ margin: "10px" }}>
+                                        <div class="chip">
+                                            <img src={user.photo} alt="Contact Person" />
+                                            {user.name}
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </div>
+                )}
             </div>
         </>
     );

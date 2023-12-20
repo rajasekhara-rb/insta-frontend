@@ -23,16 +23,22 @@ const Followers = () => {
     return (
         <>
             <div style={{ maxWidth: "800px", maxHeight: "150px", margin: "10px auto" }}>
-                {followers.map((follower) => {
-                    return (
-                        <Link to={`/profile/${follower._id}`} key={follower._id} style={{ margin: "10px" }}>
-                            <div class="chip">
-                                <img src={follower.photo} alt="Contact Person" />
-                                {follower.name}
-                            </div>
-                        </Link>
-                    )
-                })}
+                {followers.length <= 0 ? (
+                    <h5 >Oops! You do not have followers.</h5>
+                ) : (
+                    <div>
+                        {followers.map((follower) => {
+                            return (
+                                <Link to={`/profile/${follower._id}`} key={follower._id} style={{ margin: "10px" }}>
+                                    <div class="chip">
+                                        <img src={follower.photo} alt="Contact Person" />
+                                        {follower.name}
+                                    </div>
+                                </Link>
+                            )
+                        })}
+                    </div>
+                )}
             </div>
         </>
     );

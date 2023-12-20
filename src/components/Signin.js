@@ -14,6 +14,11 @@ const Signin = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const demodetails = {
+        email: "demo@gmail.com",
+        password: "Demo@123"
+    }
+
     const PostData = () => {
         if (!email || !password) {
             toast.error("Please fill all details")
@@ -87,6 +92,15 @@ const Signin = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <button className="btn waves-effect waves-light #448aff red accent-2" style={{ marginBottom: "5px" }}
+                    type="button"
+                    onClick={() => {
+                        setEmail(demodetails.email);
+                        setPassword(demodetails.password);
+                    }}
+                >Use Demo Credentials
+                </button>
+                <br />
                 <button className="btn waves-effect waves-light #448aff blue accent-2"
                     type="submit"
                     name="action"
@@ -94,7 +108,9 @@ const Signin = () => {
                 >Login
                 </button>
                 <h6>
-                    <Link to="/signup">Don't have an account?</Link>
+                    <Link to="/signup">
+                        Don't have an account?
+                    </Link>
                 </h6>
             </div>
             <ToastContainer />

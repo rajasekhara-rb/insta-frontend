@@ -3,15 +3,13 @@ import './App.css';
 // import "materialize-css/dist/css/materialize.min.css";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageNotFound from './components/PageNotFound';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import CreatePost from './components/CreatePost';
 import Profile from './components/Profile';
-import { useContext } from 'react';
 import { createContext } from 'react';
-import { useEffect } from 'react';
 import { useReducer } from 'react';
 import { initalState, reducer } from './reducers/useReducer';
 import { ToastContainer } from 'react-toastify';
@@ -47,20 +45,20 @@ export const UserContext = createContext();
 export const BaseUrlContext = createContext();
 
 const Routing = () => {
-  const navigate = useNavigate();
-  
-  const { dispatch } = useContext(UserContext);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    // console.log(user)
-    if (user) {
-      dispatch({ type: "USER", payload: user });
-    } else {
-      navigate("/signin");
-    }
+  // const { dispatch } = useContext(UserContext);
 
-  }, [dispatch, navigate]);
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   // console.log(user)
+  //   if (user) {
+  //     dispatch({ type: "USER", payload: user });
+  //   } else {
+  //     navigate("/signin");
+  //   }
+
+  // }, [dispatch, navigate]);
 
   return (
     <>

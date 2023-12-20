@@ -32,28 +32,32 @@ const OldProfilePics = () => {
 
     return (
         <div style={{ maxWidth: "800px", margin: "0px auto" }}>
-            <div className='postimages' id="test-swipe-1">
-                {
-                    proflephotos? (
-                        proflephotos?.map((item) => {
-                            return (
-                                <>
-                                    <div className='post' style={{ width: "250px", height: "auto" }}>
-                                        <i className='material-icons'
-                                            onClick={() => { deleteImage(item) }}
-                                            style={{ position: "relative", top: "30px", cursor: 'pointer', zIndex: "2", color: "auto" }}
-                                        >delete</i>
-                                        <img key={item}
-                                            className=' materialboxed responsive-img'
-                                            src={item} alt="profle pictures"
-                                            style={{ width: "250px", height: "250px" }} />
-                                    </div>
-                                </>
-                            )
-                        })
-                    ) : ("No photos")
-                }
-            </div>
+            {proflephotos.length <= 0 ? (
+                <h5 >You have no older profile pics. Save one during changing profile pic</h5>
+            ) : (
+                <div className='postimages' id="test-swipe-1">
+                    {
+                        proflephotos ? (
+                            proflephotos?.map((item) => {
+                                return (
+                                    <>
+                                        <div className='post' style={{ width: "250px", height: "auto" }}>
+                                            <i className='material-icons'
+                                                onClick={() => { deleteImage(item) }}
+                                                style={{ position: "relative", top: "30px", cursor: 'pointer', zIndex: "2", color: "auto" }}
+                                            >delete</i>
+                                            <img key={item}
+                                                className=' materialboxed responsive-img'
+                                                src={item} alt="profle pictures"
+                                                style={{ width: "250px", height: "250px" }} />
+                                        </div>
+                                    </>
+                                )
+                            })
+                        ) : ("No photos")
+                    }
+                </div>
+            )}
         </div>
 
     );
